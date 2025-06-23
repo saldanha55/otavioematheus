@@ -8,15 +8,18 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/estilo/estilo.css">
 </head>
 <body>
+    <%-- Monta a URL base para todos os links do controlador --%>
+    <c:set var="baseURL" value="${pageContext.request.contextPath}${applicationScope.URL_BASE}/FuncionarioControlador" />
+
     <nav>
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="PacienteControlador">Pacientes</a></li>
-            <li><a href="MedicamentoControlador">Medicamentos</a></li>
-            <li><a href="ProcedimentoControlador">Procedimentos</a></li>
-            <li><a href="QuartoControlador">Quartos</a></li>
-            <li><a href="SetorControlador">Setores</a></li>
-            <li><a href="FuncionarioControlador">Funcionários</a></li>
+            <li><a href="${pageContext.request.contextPath}/index.html">Home</a></li>
+            <li><a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/PacienteControlador">Pacientes</a></li>
+            <li><a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/MedicamentoControlador">Medicamentos</a></li>
+            <li><a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/ProcedimentoControlador">Procedimentos</a></li>
+            <li><a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/QuartoControlador">Quartos</a></li>
+            <li><a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/SetorControlador">Setores</a></li>
+            <li><a href="${baseURL}">Funcionários</a></li>
         </ul>
     </nav>
     
@@ -26,7 +29,8 @@
         <p style="color: blue;">${mensagem}</p>
     </c:if>
 
-    <form action="FuncionarioControlador" method="GET">
+    <%-- CORREÇÃO: Usando a URL base no 'action' do formulário --%>
+    <form action="${baseURL}" method="GET">
         <input type="hidden" name="id" value="${id != null ? id : '0'}">
         <input type="hidden" name="opcao" value="${opcao != null ? opcao : 'cadastrar'}">
 
@@ -52,7 +56,8 @@
         </select><br><br>
 
         <button type="submit">Salvar</button>
-        <a href="FuncionarioControlador?opcao=cancelar">
+        <%-- CORREÇÃO: Usando a URL base no link do botão Cancelar --%>
+        <a href="${baseURL}?opcao=cancelar">
             <button type="button">Cancelar</button>
         </a>
     </form>
@@ -82,8 +87,9 @@
                     <td>${func.salario}</td>
                     <td>${func.setor.nome}</td>
                     <td>
-                        <a href="FuncionarioControlador?opcao=editar&id=${func.id}&nome=${func.nome}&cpf=${func.cpf}&cargo=${func.cargo}&salario=${func.salario}&idSetor=${func.setor.id}">Editar</a>
-                        <a href="FuncionarioControlador?opcao=excluir&id=${func.id}&nome=${func.nome}&cpf=${func.cpf}&cargo=${func.cargo}&salario=${func.salario}&idSetor=${func.setor.id}">Excluir</a>
+                        <%-- CORREÇÃO: Usando a URL base nos links de Ações --%>
+                        <a href="${baseURL}?opcao=editar&id=${func.id}&nome=${func.nome}&cpf=${func.cpf}&cargo=${func.cargo}&salario=${func.salario}&idSetor=${func.setor.id}">Editar</a>
+                        <a href="${baseURL}?opcao=excluir&id=${func.id}&nome=${func.nome}&cpf=${func.cpf}&cargo=${func.cargo}&salario=${func.salario}&idSetor=${func.setor.id}">Excluir</a>
                     </td>
                 </tr>
             </c:forEach>
