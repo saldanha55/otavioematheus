@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Controlador para as operações CRUD da entidade Atendimento.
+ * Controlador para as operações CRUD da entidade Atendimento. (Versão Corrigida)
  *
  * @author 11997803674
  */
@@ -82,6 +82,7 @@ public class AtendimentoControlador extends HttpServlet {
     private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String dataStr = request.getParameter("dataAtendimento");
         if (dataStr != null && !dataStr.isEmpty()) {
+            // Converte a string do input 'datetime-local' para LocalDateTime e depois para Timestamp
             atendimento.setDataAtendimento(Timestamp.valueOf(LocalDateTime.parse(dataStr)));
             atendimento.setDescricao(request.getParameter("descricao"));
             
@@ -101,6 +102,7 @@ public class AtendimentoControlador extends HttpServlet {
     private void editar(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException {
         Atendimento atendimentoParaEditar = atendimentoDao.buscarPorId(Integer.parseInt(id));
         request.setAttribute("id", atendimentoParaEditar.getId());
+        // Converte o Timestamp do banco para LocalDateTime para preencher o formulário corretamente
         request.setAttribute("dataAtendimento", atendimentoParaEditar.getDataAtendimento().toLocalDateTime());
         request.setAttribute("descricao", atendimentoParaEditar.getDescricao());
         request.setAttribute("idPaciente", atendimentoParaEditar.getPaciente().getId());
@@ -124,7 +126,16 @@ public class AtendimentoControlador extends HttpServlet {
 
     private void confirmarEditar(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException {
         atendimento.setId(Integer.valueOf(id));
-        atendimento.setDataAtendimento(Timestamp.valueOf(request.getParameter("dataAtendimento")));
+        
+        // **INÍCIO DA CORREÇÃO**
+        // Pega a string do formulário (ex: "2024-06-25T14:30")
+        String dataStr = request.getParameter("dataAtendimento");
+        // Converte a string para um objeto LocalDateTime, que entende o formato com "T"
+        LocalDateTime ldt = LocalDateTime.parse(dataStr);
+        // Converte o objeto LocalDateTime para o Timestamp que o JDBC precisa
+        atendimento.setDataAtendimento(Timestamp.valueOf(ldt));
+        // **FIM DA CORREÇÃO**
+
         atendimento.setDescricao(request.getParameter("descricao"));
 
         Paciente p = new Paciente();
