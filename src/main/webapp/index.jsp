@@ -55,7 +55,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
                     <!-- Card de Pacientes -->
-                    <a href="${contexto}${basePath}/PacienteControlador" class="dashboard-card bg-white p-6 rounded-lg shadow-sm transition-transform duration-300">
+                    <a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/PacienteControlador" class="dashboard-card bg-white p-6 rounded-lg shadow-sm transition-transform duration-300">
                         <div class="flex items-center">
                             <i class="fas fa-users fa-2x text-blue-500"></i>
                             <div class="ml-4">
@@ -66,7 +66,7 @@
                     </a>
 
                     <!-- Card de Funcionários -->
-                    <a href="${contexto}${basePath}/FuncionarioControlador" class="dashboard-card bg-white p-6 rounded-lg shadow-sm transition-transform duration-300">
+                    <a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/FuncionarioControlador" class="dashboard-card bg-white p-6 rounded-lg shadow-sm transition-transform duration-300">
                         <div class="flex items-center">
                             <i class="fas fa-user-doctor fa-2x text-green-500"></i>
                             <div class="ml-4">
@@ -77,7 +77,7 @@
                     </a>
 
                     <!-- Card de Atendimentos -->
-                    <a href="${contexto}${basePath}/AtendimentoControlador" class="dashboard-card bg-white p-6 rounded-lg shadow-sm transition-transform duration-300">
+                    <a href="$${pageContext.request.contextPath}${applicationScope.URL_BASE}/AtendimentoControlador" class="dashboard-card bg-white p-6 rounded-lg shadow-sm transition-transform duration-300">
                         <div class="flex items-center">
                             <i class="fas fa-file-medical fa-2x text-yellow-500"></i>
                             <div class="ml-4">
@@ -88,7 +88,7 @@
                     </a>
                     
                     <!-- Card de Internações -->
-                    <a href="${contexto}${basePath}/InternacaoControlador" class="dashboard-card bg-white p-6 rounded-lg shadow-sm transition-transform duration-300">
+                    <a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/InternacaoControlador" class="dashboard-card bg-white p-6 rounded-lg shadow-sm transition-transform duration-300">
                         <div class="flex items-center">
                             <i class="fas fa-bed-pulse fa-2x text-red-500"></i>
                             <div class="ml-4">
@@ -102,16 +102,16 @@
                     <div class="sm:col-span-2 md:col-span-3 lg:col-span-4 mt-4 p-6 bg-white rounded-lg shadow-sm">
                         <h3 class="text-xl font-semibold text-gray-800 mb-4">Cadastros Auxiliares</h3>
                         <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                            <a href="${contexto}${basePath}/SetorControlador" class="flex items-center p-3 text-gray-600 hover:bg-gray-100 rounded-md transition-colors">
+                            <a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/SetorControlador" class="flex items-center p-3 text-gray-600 hover:bg-gray-100 rounded-md transition-colors">
                                 <i class="fas fa-building fa-fw mr-2 text-indigo-500"></i> Setores
                             </a>
-                             <a href="${contexto}${basePath}/QuartoControlador" class="flex items-center p-3 text-gray-600 hover:bg-gray-100 rounded-md transition-colors">
+                             <a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/QuartoControlador" class="flex items-center p-3 text-gray-600 hover:bg-gray-100 rounded-md transition-colors">
                                 <i class="fas fa-door-open fa-fw mr-2 text-indigo-500"></i> Quartos
                             </a>
-                            <a href="${contexto}${basePath}/ProcedimentoControlador" class="flex items-center p-3 text-gray-600 hover:bg-gray-100 rounded-md transition-colors">
+                            <a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/ProcedimentoControlador" class="flex items-center p-3 text-gray-600 hover:bg-gray-100 rounded-md transition-colors">
                                 <i class="fas fa-stethoscope fa-fw mr-2 text-indigo-500"></i> Procedimentos
                             </a>
-                            <a href="${contexto}${basePath}/MedicamentoControlador" class="flex items-center p-3 text-gray-600 hover:bg-gray-100 rounded-md transition-colors">
+                            <a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/MedicamentoControlador" class="flex items-center p-3 text-gray-600 hover:bg-gray-100 rounded-md transition-colors">
                                 <i class="fas fa-pills fa-fw mr-2 text-indigo-500"></i> Medicamentos
                             </a>
                         </div>
