@@ -8,7 +8,9 @@ com\mycompany\provajava\modelo\dao\SetorDao$SetorRowMapper.class
 com\mycompany\provajava\controlador\QuartoControlador.class
 com\mycompany\provajava\modelo\dao\GenericoDAO.class
 com\mycompany\provajava\modelo\entidade\Setor.class
+com\mycompany\provajava\modelo\dao\InternacaoDao$InternacaoRowMapper.class
 com\mycompany\provajava\modelo\dao\MedicamentoDao.class
+com\mycompany\provajava\controlador\InternacaoControlador.class
 com\mycompany\provajava\modelo\dao\QuartoDao.class
 com\mycompany\provajava\controlador\AtendimentoControlador.class
 com\mycompany\provajava\modelo\entidade\Atendimento.class
@@ -19,6 +21,7 @@ com\mycompany\provajava\modelo\entidade\Procedimento.class
 com\mycompany\provajava\modelo\dao\ConnectionFactory.class
 com\mycompany\provajava\modelo\entidade\Medicamento.class
 com\mycompany\provajava\controlador\SetorControlador.class
+com\mycompany\provajava\modelo\dao\InternacaoDao.class
 com\mycompany\provajava\modelo\dao\ProcedimentoDao$ProcedimentoRowMapper.class
 com\mycompany\provajava\modelo\dao\ProcedimentoDao.class
 com\mycompany\provajava\modelo\dao\MedicamentoDao$MedicamentoRowMapper.class
@@ -29,6 +32,7 @@ com\mycompany\provajava\servicos\WebConstante.class
 com\mycompany\provajava\resources\JakartaEE10Resource.class
 com\mycompany\provajava\modelo\dao\PacienteDao$PacienteRowMapper.class
 com\mycompany\provajava\modelo\dao\FuncionarioDao.class
+com\mycompany\provajava\modelo\entidade\Internacao.class
 com\mycompany\provajava\servicos\ConfigListener.class
 com\mycompany\provajava\controlador\FuncionarioControlador.class
 com\mycompany\provajava\modelo\dao\PacienteDao.class
