@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.provajava.controlador;
 
 import com.mycompany.provajava.modelo.dao.ProcedimentoDao;
@@ -17,120 +13,115 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
-/**
- *
- * @author 11997803674
- */
-@WebServlet(WebConstante.BASE_PATH+"/ProcedimentoControlador")
-public class ProcedimentoControlador extends HttpServlet{
+@WebServlet(WebConstante.BASE_PATH + "/ProcedimentoControlador")
+public class ProcedimentoControlador extends HttpServlet {
     private Procedimento obj;
     private ProcedimentoDao dao;
-    String id, nome, desc;
-    BigDecimal  preco;
-    
+
     @Override
     public void init() throws ServletException {
         dao = new ProcedimentoDao();
         obj = new Procedimento();
     }
-    
+
     @Override
-    protected void doGet (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try{
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
             String opcao = request.getParameter("opcao");
-            if(opcao==null||opcao.isEmpty()){
-                opcao="cadastrar";
+            if (opcao == null || opcao.isEmpty()) {
+                request.setAttribute("opcao", "cadastrar");
+                encaminharParaPagina(request, response);
+                return;
             }
-            id= request.getParameter("id");
-            nome= request.getParameter("nome");
-            desc= request.getParameter("desc");
-            preco= new BigDecimal(request.getParameter("preco"));
+
+            String id = request.getParameter("id");
             
-            switch(opcao) {
+            switch (opcao) {
                 case "cadastrar":
                     cadastrar(request, response);
-                break;
+                    break;
                 case "editar":
-                    editar(request, response);
-                break;
+                    editar(request, response, id);
+                    break;
                 case "excluir":
-                    excluir(request, response);
-                break;
+                    excluir(request, response, id);
+                    break;
                 case "confirmarEditar":
-                    confirmarEditar(request, response);
-                break;
+                    confirmarEditar(request, response, id);
+                    break;
                 case "confirmarExcluir":
-                    confirmarExcluir(request, response);
-                break;
+                    confirmarExcluir(request, response, id);
+                    break;
                 case "cancelar":
                     cancelar(request, response);
-                break;
+                    break;
                 default:
-                    throw new IllegalArgumentException("Opção inválida"+opcao);
-                }
+                    throw new IllegalArgumentException("Opção inválida" + opcao);
+            }
+        } catch (Exception e) {
+            response.getWriter().println("Erro: " + e.getMessage());
+            e.printStackTrace(response.getWriter());
         }
-        catch(NumberFormatException e){
-            response.getWriter().println("Erro: um ou mais parâmetros não são números válidos"+e.getMessage());
-        }catch(IllegalArgumentException e){
-            response.getWriter().println("Erro: Parâmetros ausentes"+e.getMessage());
-        }
-        }
-    protected void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        obj.setNome(nome);
-        obj.setDesc(desc);
-        obj.setPreco(preco);
+    }
+
+    private void cadastrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        obj.setNome(request.getParameter("nome"));
+        obj.setDesc(request.getParameter("desc"));
+        obj.setPreco(new BigDecimal(request.getParameter("preco")));
         dao.salvar(obj);
         encaminharParaPagina(request, response);
     }
     
-    private void editar(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
-        request.setAttribute("id", id);
-        request.setAttribute("nome", nome);
-        request.setAttribute("desc", desc);
-        request.setAttribute("preco", preco);
+    private void editar(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException {
+        Procedimento proc = dao.buscarPorId(Integer.parseInt(id));
+        request.setAttribute("id", proc.getId());
+        request.setAttribute("nome", proc.getNome());
+        request.setAttribute("desc", proc.getDesc());
+        request.setAttribute("preco", proc.getPreco());
         request.setAttribute("opcao", "confirmarEditar");
         request.setAttribute("mensagem", "Edite os dados e clique no botão 'salvar'.");
         encaminharParaPagina(request, response);
     }
-    
-    private void excluir(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
-        request.setAttribute("id", id);
-        request.setAttribute("nome", nome);
-        request.setAttribute("desc", desc);
-        request.setAttribute("preco", preco);
+
+    private void excluir(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException {
+        Procedimento proc = dao.buscarPorId(Integer.parseInt(id));
+        request.setAttribute("id", proc.getId());
+        request.setAttribute("nome", proc.getNome());
+        request.setAttribute("desc", proc.getDesc());
+        request.setAttribute("preco", proc.getPreco());
         request.setAttribute("opcao", "confirmarExcluir");
         request.setAttribute("mensagem", "Clique no botão 'salvar' para excluir os dados.");
         encaminharParaPagina(request, response);
     }
-    
-    private void confirmarEditar(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+
+    private void confirmarEditar(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException {
         obj.setId(Integer.valueOf(id));
-        obj.setNome(nome);
-        obj.setDesc(desc);
-        obj.setPreco(preco);
+        obj.setNome(request.getParameter("nome"));
+        obj.setDesc(request.getParameter("desc"));
+        obj.setPreco(new BigDecimal(request.getParameter("preco")));
         dao.alterar(obj);
         encaminharParaPagina(request, response);
     }
     
-    private void confirmarExcluir(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+    private void confirmarExcluir(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException {
         obj.setId(Integer.valueOf(id));
         dao.excluir(obj);
         encaminharParaPagina(request, response);
     }
-    
-    private void cancelar(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
-        request.setAttribute("id", 0);
+
+    private void cancelar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("id", "0");
         request.setAttribute("nome", "");
         request.setAttribute("desc", "");
         request.setAttribute("preco", "");
-        request.setAttribute("opcao", "cancelar");
+        request.setAttribute("opcao", "cadastrar");
         encaminharParaPagina(request, response);
     }
-    
+
     protected void encaminharParaPagina(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Procedimento> procedimentos = dao.buscarTodas();
         request.setAttribute("procedimentos", procedimentos);
         RequestDispatcher enviar = request.getRequestDispatcher("/CadastroProcedimento.jsp");
         enviar.forward(request, response);
     }
-    }
+}

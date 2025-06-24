@@ -13,7 +13,7 @@
 
     <nav>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/index.html">Home</a></li>
+            <li><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
             <li><a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/PacienteControlador">Pacientes</a></li>
             <li><a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/MedicamentoControlador">Medicamentos</a></li>
             <li><a href="${pageContext.request.contextPath}${applicationScope.URL_BASE}/ProcedimentoControlador">Procedimentos</a></li>
